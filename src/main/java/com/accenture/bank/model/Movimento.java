@@ -21,18 +21,16 @@ import javax.validation.constraints.NotNull;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "tb_extrato")
-public class Extrato implements Serializable {
+@Table(name = "tb_movimento")
+public class Movimento implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
 	private Date dataHoraMovimento;
     @NotNull
 	private OperacaoEnum operacaoEnum;
-    @NotNull
-	private Integer idContaCorrente;
 
 }
