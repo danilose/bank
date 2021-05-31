@@ -1,14 +1,15 @@
 package com.accenture.bank.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
-import java.util.List;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Entity
@@ -22,18 +23,22 @@ public class Agencia implements Serializable {
     private Integer id;
 
     @NotNull
+    @Length(max = 45)
 	private String nome;
 
     @NotNull
+    @Length(max = 45)
 	private String endereco;
 
     @NotNull
+    @Length(max = 15)
 	private String fone;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
+    @ManyToMany(cascade = {CascadeType.PERSIST})
     @JoinTable(name="tb_cliente_agencia",
-            joinColumns={@JoinColumn(name="cliente_id")},
-            inverseJoinColumns={@JoinColumn(name="agencia_id")})
+            joinColumns={@JoinColumn(name="cliente_id", referencedColumnName="id")},
+            inverseJoinColumns={@JoinColumn(name="agencia_id", referencedColumnName="id")})
     private List<Cliente> clientes;
 	
 }

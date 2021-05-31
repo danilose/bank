@@ -1,14 +1,16 @@
 package com.accenture.bank.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
-import java.util.List;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Entity
@@ -23,12 +25,17 @@ public class ContaCorrente implements Serializable {
 
     @NotNull
     @OneToOne
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     private Agencia agencia;
 
     @NotNull
+    @Length(max = 45)
 	private String numero;
 
     @NotNull
+    @Column(precision=11, scale=2)
 	private Double saldo = 0.0;
 
     @NotNull

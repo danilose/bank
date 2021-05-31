@@ -1,16 +1,18 @@
 package com.accenture.bank.model;
 
-import java.io.Serializable;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.br.CPF;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -24,21 +26,25 @@ public class Cliente implements Serializable {
 	private Integer id;
 
     @NotNull
+    @Length(max = 45)
 	private String nome;
 
     @CPF(message = "CPF inválido")
     @NotNull
-    @Size(max = 14)
+    @Length(max = 14)
     private String cpf;
 
     @NotNull
+    @Size(max = 20)
 	private String fone;
 
     @NotNull
-    @ManyToMany(mappedBy = "clientes", fetch = FetchType.LAZY)
-    private List<Agencia> agencias;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "clientes")
+    private List<Agencia> agencias = new ArrayList<>();
 
     @OneToMany
+    @JsonIgnore
     @JoinColumn(name="cliente_id")
-    private List<ContaCorrente> contasCorrente;
+    private List<ContaCorrente> contasCorrente = new ArrayList<>();
 }
