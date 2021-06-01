@@ -35,7 +35,6 @@ public class AgenciaController {
     @PostMapping
     private int saveAgencia(@RequestBody Agencia agencia)
     {
-        System.out.println(agencia);
         service.saveOrUpdate(agencia);
         return agencia.getId();
     }

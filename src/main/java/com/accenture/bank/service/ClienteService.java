@@ -15,7 +15,7 @@ public class ClienteService {
 
     public List<Cliente> getAllCliente()
     {
-        List<Cliente> clientes = new ArrayList<Cliente>();
+        List<Cliente> clientes = new ArrayList<>();
         repository.findAll().forEach(cliente -> clientes.add(cliente));
         return clientes;
     }

@@ -15,7 +15,7 @@ public class AgenciaService {
 
     public List<Agencia> getAllAgencia()
     {
-        List<Agencia> agencias = new ArrayList<Agencia>();
+        List<Agencia> agencias = new ArrayList<>();
         repository.findAll().forEach(agencia -> agencias.add(agencia));
         return agencias;
     }
